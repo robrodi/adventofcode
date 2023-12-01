@@ -29,7 +29,6 @@ class Solution : Solver {
             Char = line[spacePos+1],
             Password = line.Split(' ')[2]
         };
-
     }
     public struct RuleAndPw{
         public int Min;

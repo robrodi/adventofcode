@@ -9,8 +9,8 @@ class SplashScreenImpl : SplashScreen {
 
         var color = Console.ForegroundColor;
         Write(0xcc00, false, "           ▄█▄ ▄▄█ ▄ ▄ ▄▄▄ ▄▄ ▄█▄  ▄▄▄ ▄█  ▄▄ ▄▄▄ ▄▄█ ▄▄▄\n           █▄█ █ █ █ █ █▄█ █ █ █   █ █ █▄ ");
-            Write(0xcc00, false, " █  █ █ █ █ █▄█\n           █ █ █▄█ ▀▄▀ █▄▄ █ █ █▄  █▄█ █   █▄ █▄█ █▄█ █▄▄  /^2020$/\n            \n   ");
-            Write(0xcc00, false, "        ");
+            Write(0xcc00, false, " █  █ █ █ █ █▄█\n           █ █ █▄█ ▀▄▀ █▄▄ █ █ █▄  █▄█ █   █▄ █▄█ █▄█ █▄▄  sub y{2020}\n            \n");
+            Write(0xcc00, false, "           ");
             Write(0x666666, false, "              ....");
             Write(0xccccff, false, ".");
             Write(0x666666, false, ".");
