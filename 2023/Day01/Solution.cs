@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AngleSharp.Text;
@@ -18,37 +19,37 @@ class Solution : Solver {
         { "zero", 0},
     };
     public object PartOne(string input) {
-          return input.Split(System.Environment.NewLine)
-                      .Select(l => getInt(l, numbers, false))
+          return input.Split(Environment.NewLine)
+                      .Select(l => getInt(l, FindFirstDigit))
                       .Sum();
     }
 
     public object PartTwo(string input)
     {
-        return input.Split(System.Environment.NewLine)
-                    .Select(l => getInt(l, numbers, true))
+        return input.Split(Environment.NewLine)
+                    .Select(l => getInt(l, l => FindFirstDigit(l) ?? FindFirstNumber(l, numbers)))
                     .Sum();
     }
 
-    private static int getInt(string line, Dictionary<string, int> numbers, bool useWords = true)
+    private static int getInt(string line, Func<string, int?> parser)
     {
         int? first = null;
         for (var i = 0; i < line.Length; i++){
-            first = FindFirstNumberInSubstring(line[i..], numbers, useWords);
+            first = parser(line[i..]);
             if (first.HasValue) break;
         }
 
         int? last = null;
         for (var i = line.Length - 1; i >= 0; i--){
-            last = FindFirstNumberInSubstring(line[i..], numbers, useWords);
+            last = parser(line[i..]);
             if (last.HasValue) break;
         }
         return first.Value * 10 + last.Value;
     }
-    private static int? FindFirstNumberInSubstring(string line, Dictionary<string, int> numbers, bool useWords = true)
+    private static int? FindFirstDigit(string line) => line[0].IsDigit() ? line[0] - '0' : null;
+    private static int? FindFirstNumber(string line, Dictionary<string, int> numbers)
     {
         if (line[0].IsDigit()) return line[0] - '0';
-        if (!useWords) return null;
 
         foreach (var number in numbers){
             if (line.StartsWith(number.Key))
