@@ -9,12 +9,20 @@ class SplashScreenImpl : SplashScreen {
 
         var color = Console.ForegroundColor;
         Write(0xcc00, false, "           ▄█▄ ▄▄█ ▄ ▄ ▄▄▄ ▄▄ ▄█▄  ▄▄▄ ▄█  ▄▄ ▄▄▄ ▄▄█ ▄▄▄\n           █▄█ █ █ █ █ █▄█ █ █ █   █ █ █▄ ");
-            Write(0xcc00, false, " █  █ █ █ █ █▄█\n           █ █ █▄█ ▀▄▀ █▄▄ █ █ █▄  █▄█ █   █▄ █▄█ █▄█ █▄▄  0x0000 | 2020\n           ");
-            Write(0xcc00, false, " \n           ");
-            Write(0x666666, false, "              ..........|..........                ");
+            Write(0xcc00, false, " █  █ █ █ █ █▄█\n           █ █ █▄█ ▀▄▀ █▄▄ █ █ █▄  █▄█ █   █▄ █▄█ █▄█ █▄▄  {:year 2020}\n            ");
+            Write(0xcc00, false, "\n           ");
+            Write(0x666666, false, "              ......");
+            Write(0xccccff, false, ".");
+            Write(0x666666, false, ".");
+            Write(0xccccff, false, "..");
+            Write(0xff0000, false, "|");
+            Write(0xccccff, false, "..");
+            Write(0x666666, false, ".");
+            Write(0xccccff, false, ".");
+            Write(0x666666, false, "......                ");
             Write(0xcccccc, false, " 1 ");
-            Write(0xffff66, false, "*");
-            Write(0x666666, false, "*\n              .....'''''' .'  -  -  ");
+            Write(0xffff66, false, "**\n           ");
+            Write(0x666666, false, "   .....'''''' .'  -  -  ");
             Write(0xcccccc, false, "\\");
             Write(0x666666, false, "- .''~ ~ ''''''.....     ");
             Write(0xcccccc, false, " 2 ");

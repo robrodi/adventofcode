@@ -8,16 +8,24 @@ class Solution : Solver {
 
     public object PartOne(string input) {
         var numbers = Numbers(input);
-       foreach (var n in numbers)
-       {
-        if (numbers.Contains(2020-n))
-        return n * (2020-n);
-       }
-       return -4;
+        foreach (var n in numbers)
+        {
+            if (numbers.Contains(2020-n))
+            return n * (2020-n);
+        }
+        return -4;
     }
 
     public object PartTwo(string input) {
-       return 0;
+    var numbers = Numbers(input);
+        foreach (var n in numbers)
+        foreach(var o in numbers)
+        {
+            if (numbers.Contains(2020-n-o)){
+                return n * o * (2020 - n - o);
+            }
+        }
+        return 0;
     }
 
     HashSet<int> Numbers(string input) {
