@@ -15,12 +15,27 @@ public class Grid2d<T>{
         Height = height;
         Data = new T[width*height];
     }
+    public static Grid2d<char> ParseChars(string input)
+    {
+        var lines = input.Split('\n');
+        var g = new Grid2d<char>(lines[0].Length, lines.Length);
+        for (var y = 0; y < lines.Length; y++)
+        {
+            var line = lines[y];
+            for (var x = 0; x < line.Length; x++)
+                g.Set(x, y, line[x]);
+        }
+        return g;
+    }
+    public T Get(Point p) => Get(p.X, p.Y);
 
     public T Get(int x, int y)
     {
         ValidateBoundaries(x, y);
         return Data[GetIndex(x, y)];
     }
+
+    public IEnumerable<Point> AdjacentPoints(Point p, bool includeDiag = true) => AdjacentPoints(p.X, p.Y, includeDiag);
 
     public IEnumerable<Point> AdjacentPoints(int x, int y, bool includeDiag = true){
         ValidateBoundaries(x, y);
@@ -45,6 +60,12 @@ public class Grid2d<T>{
             yield return new Point(x, y+1);
             if (!isRight && includeDiag)yield return new Point(x+1, y+1);
         }
+    }
+    public IEnumerable<Point> GetPoints() => GetPoints(Width, Height);
+    public static IEnumerable<Point> GetPoints(int w, int h){
+        for (var y = 0; y < h; y++)
+        for (var x = 0; x < w; x++)
+            yield return new Point(x,y);
     }
     public IEnumerable<T> AdjacentValues(int x, int y, bool includeDiag = true) {
         return AdjacentPoints(x, y, includeDiag).Select(s => Get(s.X, s.Y));

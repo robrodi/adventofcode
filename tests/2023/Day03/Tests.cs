@@ -23,6 +23,7 @@ public class Tests {
 ......755.
 ...$.*....
 .664.598..";
+      Assert.Equal(4361, new Solution().PartOne(sampleInput));
     }
 
     [Fact]
@@ -37,6 +38,7 @@ public class Tests {
 ......755.
 ...$.*....
 .664.598..";
+      Assert.Equal(467835, new Solution().PartTwo(sampleInput));
     }
 
     [Fact]

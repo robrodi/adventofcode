@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 
 namespace AdventOfCode;
@@ -35,9 +37,12 @@ class Renderer2d{
     {
         Back.Set(x, y, value);
     }
+    public ConsoleSprite Get(Point p) => Back.Get(p.X,p.Y);
     public ConsoleSprite Get(int x, int y) => Back.Get(x,y);
     public Grid2d<ConsoleSprite> Front => IsRedFront ? Red : Blue;
     public Grid2d<ConsoleSprite> Back => !IsRedFront ? Red : Blue;
+    public IEnumerable<Point> GetPoints() => Grid2d<char>.GetPoints(Width, Height);
+
     public void Render()
     {
         var s = (int)sleepTime.TotalMilliseconds;
