@@ -1,12 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Text;
-using Xunit;
-using AdventOfCode.Y2020.Day04;
-
 namespace AdventOfCode.tests.Y2020.Day04;
 
 [ProblemName("Passport Processing")]
