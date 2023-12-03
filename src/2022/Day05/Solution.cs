@@ -31,49 +31,77 @@ class Solution : Solver {
         CrateMover9000(move with {source=helper});
     }
 
-    string MoveCrates(string input, Action<Move> crateMover) {
+    string MoveCrates(string input, Action<Move> crateMover)
+    {
         var parts = input.Split("\n\n");
-        
+
         var stackDefs = parts[0].Split("\n");
         // [D]
         // [N] [C]
         // [Z] [M] [P]
         //  1   2   3 
-      
+
         // last line defines the number of stacks:
         var stacks = stackDefs
             .Last()
             .Chunk(4)
             .Select(_ => new Stack<char>())
             .ToArray();
-        
+
         // Each input line is processed in 4 character long chunks in bottom up
         // order. Push the next element into the next stack (note how the chunk 
         // and the stack is paired up using the zip function). ' ' means no more 
         // elements to add, just go to the next chunk.
-        foreach (var line in stackDefs.Reverse().Skip(1)) {
-            foreach (var (stack, item) in stacks.Zip(line.Chunk(4))) {
-                if (item[1] != ' ') {
+        foreach (var line in stackDefs.Reverse().Skip(1))
+        {
+            foreach (var (stack, item) in stacks.Zip(line.Chunk(4)))
+            {
+                if (item[1] != ' ')
+                {
                     stack.Push(item[1]);
                 }
             }
         }
+        Console.Clear();
+        var renderer = new Renderer2d(stacks.Length, 64);
+
+        RedrawStacks(stacks, renderer);
+        // init rendering.
 
         // now parse the move operations and crateMover on them:
-        foreach (var line in parts[1].Split("\n")) {
+        foreach (var line in parts[1].Split("\n"))
+        {
             // e.g. "move 6 from 4 to 3"
             var m = Regex.Match(line, @"move (.*) from (.*) to (.*)");
             var count = int.Parse(m.Groups[1].Value);
             var from = int.Parse(m.Groups[2].Value) - 1;
             var to = int.Parse(m.Groups[3].Value) - 1;
+
             crateMover(
                 new Move(
-                    count:count, 
+                    count: count,
                     source: stacks[from], target: stacks[to]
                 ));
+            RedrawStacks(stacks, renderer);
         }
 
         // collect the top of each stack:
         return string.Join("", stacks.Select(stack => stack.Pop()));
+    }
+
+    private static void RedrawStacks(Stack<char>[] stacks, Renderer2d renderer)
+    {
+        var maxHeight = stacks.Max(s => s.Count) + 1;
+        for (int x = 0; x < stacks.Length; x++)
+        {
+            var stack = stacks[x].ToArray();
+            var colHeightAdj = maxHeight - stack.Length;
+            for (int y = 0; y < stack.Length; y++)
+            {
+                var color = y == stack.Length - 1 ? ConsoleColor.Green : ConsoleColor.White;
+                renderer.Draw(x, y + colHeightAdj, new ConsoleSprite(stack[y], color));
+            }
+        }
+        renderer.Render();
     }
 }
